@@ -1,0 +1,757 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>aes.js test</title>
+  <style type="text/css">
+    body {
+      font-family:monospace;
+    }
+    
+    fieldset {
+      border: 1px solid #000;
+      margin-bottom: 5px;
+    }
+    
+    legend {
+      font-weight: bold;
+    }
+  </style>
+  <script type="text/javascript" src="libbigint.min.js"></script>
+  <script type="text/javascript" src="dh.js"></script>
+  <script type="text/javascript" src="powmod.js"></script>
+  <script type="text/javascript" src="aes.js"></script>
+</head>
+
+<body>
+  <h1>JS-AES Test</h1>
+  
+  <script type="text/javascript">
+    function reportPass(div) {
+      div.innerHTML = div.innerHTML + ". ";
+    }
+    function reportError(div) {
+      div.innerHTML = div.innerHTML + "F ";
+    }
+    function reportCount(div, passes, errors) {
+      div.innerHTML = div.innerHTML + "<br /><br />"
+      if (passes >= 1) {
+        div.innerHTML = div.innerHTML + (passes + ' passes ');
+      }
+      if (errors >= 1) {
+        div.innerHTML = div.innerHTML + ("<strong>" + errors + " errors</strong>");
+      }
+    }
+  </script>
+  
+  <fieldset>
+    <legend>AES.cipher - 128 bit key</legend>
+  
+    <div id="AES_cipher128Status"></div>
+  
+    <script type="text/javascript">
+      function AES_cipher128Test() {
+        var expect = [0x69, 0xc4, 0xe0, 0xd8, 0x6a, 0x7b, 0x04, 0x30, 0xd8, 0xcd, 0xb7, 0x80, 0x70, 0xb4, 0xc5, 0x5a];
+        var actual = AES.cipher(
+          [0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff],
+          AES.keyExpansion([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f])
+        );
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_cipher128Status");
+        
+        for (var i = 0; i < expect.length; i++) {
+          if (expect[i] == actual[i]) {
+            reportPass(status);
+            passes++;
+          }
+          else {
+            reportError(status);
+            errors++;
+          }
+        }
+        
+        reportCount(status, passes, errors);
+      } AES_cipher128Test();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.cipher - 192 bit key</legend>
+  
+    <div id="AES_cipher192Status"></div>
+  
+    <script type="text/javascript">
+      function AES_cipher192Test() {
+        var expect = [0xdd, 0xa9, 0x7c, 0xa4, 0x86, 0x4c, 0xdf, 0xe0, 0x6e, 0xaf, 0x70, 0xa0, 0xec, 0x0d, 0x71, 0x91];
+        var actual = AES.cipher(
+          [0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff],
+          AES.keyExpansion([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17])
+        );
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_cipher192Status");
+        
+        for (var i = 0; i < expect.length; i++) {
+          if (expect[i] == actual[i]) {
+            reportPass(status);
+            passes++;
+          }
+          else {
+            reportError(status);
+            errors++;
+          }
+        }
+        
+        reportCount(status, passes, errors);
+      } AES_cipher192Test();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.cipher - 256 bit key</legend>
+  
+    <div id="AES_cipher256Status"></div>
+  
+    <script type="text/javascript">
+      function AES_cipher256Test() {
+        var expect = [0x8e, 0xa2, 0xb7, 0xca, 0x51, 0x67, 0x45, 0xbf, 0xea, 0xfc, 0x49, 0x90, 0x4b, 0x49, 0x60, 0x89];
+        var actual = AES.cipher(
+          [0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff],
+          AES.keyExpansion([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f])
+        );
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_cipher256Status");
+        
+        for (var i = 0; i < expect.length; i++) {
+          if (expect[i] == actual[i]) {
+            reportPass(status);
+            passes++;
+          }
+          else {
+            reportError(status);
+            errors++;
+          }
+        }
+        
+        reportCount(status, passes, errors);
+      } AES_cipher256Test();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.subBytes</legend>
+  
+    <div id="AES_subBytesStatus"></div>
+  
+    <script type="text/javascript">
+      function AES_subBytesTest() {
+        var expect = [
+          [0xd4, 0xe0, 0xb8, 0x1e], 
+          [0x27, 0xbf, 0xb4, 0x41],
+          [0x11, 0x98, 0x5d, 0x52], 
+          [0xae, 0xf1, 0xe5, 0x30]
+        ];
+        var actual = AES.subBytes([
+          [0x19, 0xa0, 0x9a, 0xe9], 
+          [0x3d, 0xf4, 0xc6, 0xf8],
+          [0xe3, 0xe2, 0x8d, 0x48], 
+          [0xbe, 0x2b, 0x2a, 0x08]
+          ], 4
+        );
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_subBytesStatus");
+        
+        for (var i = 0; i < 4; i++) {
+          for (var j = 0; j < 4; j++) {
+            if (expect[i][j] == actual[i][j]) {
+              reportPass(status);
+              passes++;
+            }
+            else {
+              reportError(status);
+              errors++;
+            }
+          }
+        }
+        reportCount(status, passes, errors);
+      } AES_subBytesTest();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.shiftRows</legend>
+  
+    <div id="AES_shiftRowsStatus"></div>
+  
+    <script type="text/javascript">
+      function AES_shiftRowsTest() {
+        var expect = [
+          [0xd4, 0xe0, 0xb8, 0x1e], 
+          [0xbf, 0xb4, 0x41, 0x27],
+          [0x5d, 0x52, 0x11, 0x98], 
+          [0x30, 0xae, 0xf1, 0xe5]
+        ];
+        var actual = AES.shiftRows([
+          [0xd4, 0xe0, 0xb8, 0x1e], 
+          [0x27, 0xbf, 0xb4, 0x41],
+          [0x11, 0x98, 0x5d, 0x52], 
+          [0xae, 0xf1, 0xe5, 0x30]
+          ], 4
+        );
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_shiftRowsStatus");
+        
+        for (var i = 0; i < 4; i++) {
+          for (var j = 0; j < 4; j++) {
+            if (expect[i][j] == actual[i][j]) {
+              reportPass(status);
+              passes++;
+            }
+            else {
+              reportError(status);
+              errors++;
+            }
+          }
+        }
+        reportCount(status, passes, errors);
+      } AES_shiftRowsTest();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.mixColumns</legend>
+  
+    <div id="AES_mixColumnsStatus"></div>
+  
+    <script type="text/javascript">
+      function AES_mixColumnsTest() {
+        var expect = [
+          [0x04, 0xe0, 0x48, 0x28], 
+          [0x66, 0xcb, 0xf8, 0x06],
+          [0x81, 0x19, 0xd3, 0x26], 
+          [0xe5, 0x9a, 0x7a, 0x4c]
+        ];
+        var actual = AES.mixColumns([
+          [0xd4, 0xe0, 0xb8, 0x1e], 
+          [0xbf, 0xb4, 0x41, 0x27],
+          [0x5d, 0x52, 0x11, 0x98], 
+          [0x30, 0xae, 0xf1, 0xe5]
+          ], 4
+        );
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_mixColumnsStatus");
+        
+        for (var i = 0; i < 4; i++) {
+          for (var j = 0; j < 4; j++) {
+            if (expect[i][j] == actual[i][j]) {
+              reportPass(status);
+              passes++;
+            }
+            else {
+              reportError(status);
+              errors++;
+            }
+          }
+        }
+        reportCount(status, passes, errors);
+      } AES_mixColumnsTest();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.addRoundKey</legend>
+  
+    <div id="AES_addRoundKeyStatus"></div>
+  
+    <script type="text/javascript">
+      function AES_addRoundKeyTest() {
+        var expect = [
+          [0x19, 0xa0, 0x9a, 0xe9], 
+          [0x3d, 0xf4, 0xc6, 0xf8],
+          [0xe3, 0xe2, 0x8d, 0x48], 
+          [0xbe, 0x2b, 0x2a, 0x08]
+        ];
+        var actual = AES.addRoundKey(
+          [[0x32, 0x88, 0x31, 0xe0],
+           [0x43, 0x5a, 0x31, 0x37],
+           [0xf6, 0x30, 0x98, 0x07],
+           [0xa8, 0x8d, 0xa2, 0x34]],
+          [[0x2b, 0x7e, 0x15, 0x16],
+           [0x28, 0xae, 0xd2, 0xa6],
+           [0xab, 0xf7, 0x15, 0x88],
+           [0x09, 0xcf, 0x4f, 0x3c]],
+          0, 4
+        );
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_addRoundKeyStatus");
+        
+        for (var i = 0; i < 4; i++) {
+          for (var j = 0; j < 4; j++) {
+            if (expect[i][j] == actual[i][j]) {
+              reportPass(status);
+              passes++;
+            }
+            else {
+              reportError(status);
+              errors++;
+            }
+          }
+        }
+        reportCount(status, passes, errors);
+      } AES_addRoundKeyTest();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.keyExpansion - 128 bit key</legend>
+    
+    <div id="AES_keyExpansion128Status"></div>
+    
+    <script type="text/javascript">
+      function AES_keyExpansion128Test() {
+        var expect = [
+          [0x2b, 0x7e, 0x15, 0x16],
+          [0x28, 0xae, 0xd2, 0xa6],
+          [0xab, 0xf7, 0x15, 0x88],
+          [0x09, 0xcf, 0x4f, 0x3c],
+          [0xa0, 0xfa, 0xfe, 0x17],
+          [0x88, 0x54, 0x2c, 0xb1],
+          [0x23, 0xa3, 0x39, 0x39],
+          [0x2a, 0x6c, 0x76, 0x05],
+          [0xf2, 0xc2, 0x95, 0xf2],
+          [0x7a, 0x96, 0xb9, 0x43],
+          [0x59, 0x35, 0x80, 0x7a],
+          [0x73, 0x59, 0xf6, 0x7f],
+          [0x3d, 0x80, 0x47, 0x7d],
+          [0x47, 0x16, 0xfe, 0x3e],
+          [0x1e, 0x23, 0x7e, 0x44],
+          [0x6d, 0x7a, 0x88, 0x3b],
+          [0xef, 0x44, 0xa5, 0x41],
+          [0xa8, 0x52, 0x5b, 0x7f],
+          [0xb6, 0x71, 0x25, 0x3b],
+          [0xdb, 0x0b, 0xad, 0x00],
+          [0xd4, 0xd1, 0xc6, 0xf8],
+          [0x7c, 0x83, 0x9d, 0x87],
+          [0xca, 0xf2, 0xb8, 0xbc],
+          [0x11, 0xf9, 0x15, 0xbc],
+          [0x6d, 0x88, 0xa3, 0x7a],
+          [0x11, 0x0b, 0x3e, 0xfd],
+          [0xdb, 0xf9, 0x86, 0x41],
+          [0xca, 0x00, 0x93, 0xfd],
+          [0x4e, 0x54, 0xf7, 0x0e],
+          [0x5f, 0x5f, 0xc9, 0xf3],
+          [0x84, 0xa6, 0x4f, 0xb2],
+          [0x4e, 0xa6, 0xdc, 0x4f],
+          [0xea, 0xd2, 0x73, 0x21],
+          [0xb5, 0x8d, 0xba, 0xd2],
+          [0x31, 0x2b, 0xf5, 0x60],
+          [0x7f, 0x8d, 0x29, 0x2f],
+          [0xac, 0x77, 0x66, 0xf3],
+          [0x19, 0xfa, 0xdc, 0x21],
+          [0x28, 0xd1, 0x29, 0x41],
+          [0x57, 0x5c, 0x00, 0x6e],
+          [0xd0, 0x14, 0xf9, 0xa8],
+          [0xc9, 0xee, 0x25, 0x89],
+          [0xe1, 0x3f, 0x0c, 0xc8],
+          [0xb6, 0x63, 0x0c, 0xa6] 
+        ];
+        var actual = AES.keyExpansion([0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c]);
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_keyExpansion128Status");
+        
+        for (var i = 0; i < expect.length; i++) {
+          for (var j = 0; j < 4; j++) {
+            if (expect[i][j] == actual[i][j]) {
+              reportPass(status);
+              passes++;
+            }
+            else {
+              reportError(status);
+              errors++;
+            }
+          }
+        }
+        reportCount(status, passes, errors);
+      } AES_keyExpansion128Test();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.keyExpansion - 192 bit key</legend>
+    
+    <div id="AES_keyExpansion192Status"></div>
+    
+    <script type="text/javascript">
+      function AES_keyExpansion192Test() {
+        var expect = [
+          [0x8e, 0x73, 0xb0, 0xf7], 
+          [0xda, 0x0e, 0x64, 0x52], 
+          [0xc8, 0x10, 0xf3, 0x2b], 
+          [0x80, 0x90, 0x79, 0xe5], 
+          [0x62, 0xf8, 0xea, 0xd2], 
+          [0x52, 0x2c, 0x6b, 0x7b], 
+          [0xfe, 0x0c, 0x91, 0xf7], 
+          [0x24, 0x02, 0xf5, 0xa5], 
+          [0xec, 0x12, 0x06, 0x8e], 
+          [0x6c, 0x82, 0x7f, 0x6b], 
+          [0x0e, 0x7a, 0x95, 0xb9], 
+          [0x5c, 0x56, 0xfe, 0xc2], 
+          [0x4d, 0xb7, 0xb4, 0xbd], 
+          [0x69, 0xb5, 0x41, 0x18], 
+          [0x85, 0xa7, 0x47, 0x96], 
+          [0xe9, 0x25, 0x38, 0xfd], 
+          [0xe7, 0x5f, 0xad, 0x44], 
+          [0xbb, 0x09, 0x53, 0x86], 
+          [0x48, 0x5a, 0xf0, 0x57], 
+          [0x21, 0xef, 0xb1, 0x4f], 
+          [0xa4, 0x48, 0xf6, 0xd9], 
+          [0x4d, 0x6d, 0xce, 0x24], 
+          [0xaa, 0x32, 0x63, 0x60], 
+          [0x11, 0x3b, 0x30, 0xe6], 
+          [0xa2, 0x5e, 0x7e, 0xd5], 
+          [0x83, 0xb1, 0xcf, 0x9a], 
+          [0x27, 0xf9, 0x39, 0x43], 
+          [0x6a, 0x94, 0xf7, 0x67], 
+          [0xc0, 0xa6, 0x94, 0x07], 
+          [0xd1, 0x9d, 0xa4, 0xe1], 
+          [0xec, 0x17, 0x86, 0xeb], 
+          [0x6f, 0xa6, 0x49, 0x71], 
+          [0x48, 0x5f, 0x70, 0x32], 
+          [0x22, 0xcb, 0x87, 0x55], 
+          [0xe2, 0x6d, 0x13, 0x52], 
+          [0x33, 0xf0, 0xb7, 0xb3], 
+          [0x40, 0xbe, 0xeb, 0x28], 
+          [0x2f, 0x18, 0xa2, 0x59], 
+          [0x67, 0x47, 0xd2, 0x6b], 
+          [0x45, 0x8c, 0x55, 0x3e], 
+          [0xa7, 0xe1, 0x46, 0x6c], 
+          [0x94, 0x11, 0xf1, 0xdf], 
+          [0x82, 0x1f, 0x75, 0x0a], 
+          [0xad, 0x07, 0xd7, 0x53], 
+          [0xca, 0x40, 0x05, 0x38], 
+          [0x8f, 0xcc, 0x50, 0x06], 
+          [0x28, 0x2d, 0x16, 0x6a], 
+          [0xbc, 0x3c, 0xe7, 0xb5], 
+          [0xe9, 0x8b, 0xa0, 0x6f], 
+          [0x44, 0x8c, 0x77, 0x3c], 
+          [0x8e, 0xcc, 0x72, 0x04], 
+          [0x01, 0x00, 0x22, 0x02]
+        ];
+        var actual = AES.keyExpansion([0x8e, 0x73, 0xb0, 0xf7, 0xda, 0x0e, 0x64, 0x52, 0xc8, 0x10, 0xf3, 0x2b, 0x80, 0x90, 0x79, 0xe5, 0x62, 0xf8, 0xea, 0xd2, 0x52, 0x2c, 0x6b, 0x7b]);
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_keyExpansion192Status");
+        
+        for (var i = 0; i < expect.length; i++) {
+          for (var j = 0; j < 4; j++) {
+            if (expect[i][j] == actual[i][j]) {
+              reportPass(status);
+              passes++;
+            }
+            else {
+              reportError(status);
+              errors++;
+            }
+          }
+        }
+        reportCount(status, passes, errors);
+      } AES_keyExpansion192Test();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.keyExpansion - 256 bit key</legend>
+    
+    <div id="AES_keyExpansion256Status"></div>
+    
+    <script type="text/javascript">
+      function AES_keyExpansion256Test() {
+        var expect = [
+          [0x60, 0x3d, 0xeb, 0x10],
+          [0x15, 0xca, 0x71, 0xbe],
+          [0x2b, 0x73, 0xae, 0xf0],
+          [0x85, 0x7d, 0x77, 0x81],
+          [0x1f, 0x35, 0x2c, 0x07],
+          [0x3b, 0x61, 0x08, 0xd7],
+          [0x2d, 0x98, 0x10, 0xa3],
+          [0x09, 0x14, 0xdf, 0xf4],
+          [0x9b, 0xa3, 0x54, 0x11],
+          [0x8e, 0x69, 0x25, 0xaf],
+          [0xa5, 0x1a, 0x8b, 0x5f],
+          [0x20, 0x67, 0xfc, 0xde],
+          [0xa8, 0xb0, 0x9c, 0x1a],
+          [0x93, 0xd1, 0x94, 0xcd],
+          [0xbe, 0x49, 0x84, 0x6e],
+          [0xb7, 0x5d, 0x5b, 0x9a],
+          [0xd5, 0x9a, 0xec, 0xb8],
+          [0x5b, 0xf3, 0xc9, 0x17],
+          [0xfe, 0xe9, 0x42, 0x48],
+          [0xde, 0x8e, 0xbe, 0x96],
+          [0xb5, 0xa9, 0x32, 0x8a],
+          [0x26, 0x78, 0xa6, 0x47],
+          [0x98, 0x31, 0x22, 0x29],
+          [0x2f, 0x6c, 0x79, 0xb3],
+          [0x81, 0x2c, 0x81, 0xad],
+          [0xda, 0xdf, 0x48, 0xba],
+          [0x24, 0x36, 0x0a, 0xf2],
+          [0xfa, 0xb8, 0xb4, 0x64],
+          [0x98, 0xc5, 0xbf, 0xc9],
+          [0xbe, 0xbd, 0x19, 0x8e],
+          [0x26, 0x8c, 0x3b, 0xa7],
+          [0x09, 0xe0, 0x42, 0x14],
+          [0x68, 0x00, 0x7b, 0xac],
+          [0xb2, 0xdf, 0x33, 0x16],
+          [0x96, 0xe9, 0x39, 0xe4],
+          [0x6c, 0x51, 0x8d, 0x80],
+          [0xc8, 0x14, 0xe2, 0x04],
+          [0x76, 0xa9, 0xfb, 0x8a],
+          [0x50, 0x25, 0xc0, 0x2d],
+          [0x59, 0xc5, 0x82, 0x39],
+          [0xde, 0x13, 0x69, 0x67],
+          [0x6c, 0xcc, 0x5a, 0x71],
+          [0xfa, 0x25, 0x63, 0x95],
+          [0x96, 0x74, 0xee, 0x15],
+          [0x58, 0x86, 0xca, 0x5d],
+          [0x2e, 0x2f, 0x31, 0xd7],
+          [0x7e, 0x0a, 0xf1, 0xfa],
+          [0x27, 0xcf, 0x73, 0xc3],
+          [0x74, 0x9c, 0x47, 0xab],
+          [0x18, 0x50, 0x1d, 0xda],
+          [0xe2, 0x75, 0x7e, 0x4f],
+          [0x74, 0x01, 0x90, 0x5a],
+          [0xca, 0xfa, 0xaa, 0xe3],
+          [0xe4, 0xd5, 0x9b, 0x34],
+          [0x9a, 0xdf, 0x6a, 0xce],
+          [0xbd, 0x10, 0x19, 0x0d],
+          [0xfe, 0x48, 0x90, 0xd1],
+          [0xe6, 0x18, 0x8d, 0x0b],
+          [0x04, 0x6d, 0xf3, 0x44],
+          [0x70, 0x6c, 0x63, 0x1e]
+        ];
+        var actual = AES.keyExpansion([0x60, 0x3d, 0xeb, 0x10, 0x15, 0xca, 0x71, 0xbe, 0x2b, 0x73, 0xae, 0xf0, 0x85, 0x7d, 0x77, 0x81, 0x1f, 0x35, 0x2c, 0x07, 0x3b, 0x61, 0x08, 0xd7, 0x2d, 0x98, 0x10, 0xa3, 0x09, 0x14, 0xdf, 0xf4]);
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_keyExpansion256Status");
+        
+        for (var i = 0; i < expect.length; i++) {
+          for (var j = 0; j < 4; j++) {
+            if (expect[i][j] == actual[i][j]) {
+              reportPass(status);
+              passes++;
+            }
+            else {
+              reportError(status);
+              errors++;
+            }
+          }
+        }
+        reportCount(status, passes, errors);
+      } AES_keyExpansion256Test();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.rotWord</legend>
+  
+    <div id="AES_rotWordStatus"></div>
+  
+    <script type="text/javascript">
+      function AES_rotWordTest() {
+        var expect = [0xcf, 0x4f, 0x3c, 0x09];
+        var actual = AES.rotWord([0x09, 0xcf, 0x4f, 0x3c]);
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_rotWordStatus");
+        
+        for (var i = 0; i < 4; i++) {
+          if (expect[i] == actual[i]) {
+            reportPass(status);
+            passes++;
+          }
+          else {
+            reportError(status);
+            errors++;
+          }
+        }
+        reportCount(status, passes, errors);
+      } AES_rotWordTest();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.subWord</legend>
+    
+    <div id="AES_subWordStatus"></div>
+    
+    <script type="text/javascript">
+      function AES_subWordTest() {
+        var expect = [0x8a, 0x84, 0xeb, 0x01];
+        var actual = AES.subWord([0xcf, 0x4f, 0x3c, 0x09]);
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_subWordStatus");
+        
+        for (var i = 0; i < 4; i++) {
+          if (expect[i] == actual[i]) {
+            reportPass(status);
+            passes++;
+          }
+          else {
+            reportError(status);
+            errors++;
+          }
+        }
+        reportCount(status, passes, errors);
+      } AES_subWordTest();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.Base64.encode</legend>
+    
+    <div id="AES_Base64_encodeStatus"></div>
+    
+    <script type="text/javascript">
+      function AES_Base64_encodeTest() {
+        var expect = "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wZWQgb3ZlciB0aGUgbGF6eSBkb2c=";
+        var actual = AES.Base64.encode("the quick brown fox jumped over the lazy dog");
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_Base64_encodeStatus");
+        
+        for (var i = 0; i < expect.length; i++) {
+          if (expect[i] == actual[i]) {
+            reportPass(status);
+            passes++;
+          }
+          else {
+            reportError(status);
+            errors++;
+          }
+        }
+        reportCount(status, passes, errors);
+      } AES_Base64_encodeTest();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>AES.Base64.decode</legend>
+    
+    <div id="AES_Base64_decodeStatus"></div>
+    
+    <script type="text/javascript">
+      function AES_Base64_decodeTest() {
+        var expect = "the quick brown fox jumped over the lazy dog";
+        var actual = AES.Base64.decode("dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wZWQgb3ZlciB0aGUgbGF6eSBkb2c=");
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("AES_Base64_decodeStatus");
+        
+        for (var i = 0; i < expect.length; i++) {
+          if (expect[i] == actual[i]) {
+            reportPass(status);
+            passes++;
+          }
+          else {
+            reportError(status);
+            errors++;
+          }
+        }
+        reportCount(status, passes, errors);
+      } AES_Base64_decodeTest();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>new AES.Counter.increment</legend>
+    
+    <div id="new__AES_Counter_incrementStatus"></div>
+    
+    <script type="text/javascript">
+      function new__AES_Counter_incrementTest() {
+        var expect = [241, 229, 177, 73, 172, 112, 231, 89, 0, 0, 0, 0, 0, 1, 2, 3];
+        var actual = new AES.Counter(); actual.array = [241, 229, 177, 73, 172, 112, 231, 89, 0, 0, 0, 0, 0, 0, 0, 0]; for (var i = 0; i < 0x10203; i++) actual.increment();
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("new__AES_Counter_incrementStatus");
+        
+        for (var i = 0; i < expect.length; i++) {
+          if (expect[i] == actual.array[i]) {
+            reportPass(status);
+            passes++;
+          }
+          else {
+            reportError(status);
+            errors++;
+          }
+        }
+        reportCount(status, passes, errors);
+      } new__AES_Counter_incrementTest();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>new AES.Crypto.encrypt</legend>
+    
+    <div id="new__AES_Crypto_encryptStatus"></div>
+    
+    <script type="text/javascript">
+      function new__AES_Crypto_encryptTest() {
+        var expect = "XEEQN2MYXsRhvL7UFwiOT98hn2/vgF/e46CR6Kcy4y6KecM6qMjAG1h1nao=";
+        var actual = new AES.Crypto([209, 226, 230, 34, 56, 87, 142, 137, 135, 127, 83, 104, 55, 220, 68, 19]).setCounter([241, 229, 177, 73, 172, 112, 231, 89, 0, 0, 0, 0, 0, 0, 0, 0]).encrypt("the quick brown fox jumped over the lazy dog");
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("new__AES_Crypto_encryptStatus");
+        
+        for (var i = 0; i < expect.length; i++) {
+          if (expect[i] == actual[i]) {
+            reportPass(status);
+            passes++;
+          }
+          else {
+            reportError(status);
+            errors++;
+          }
+        }
+        reportCount(status, passes, errors);
+      } new__AES_Crypto_encryptTest();
+    </script>
+  </fieldset>
+  
+  <fieldset>
+    <legend>new AES.Crypto.decrypt</legend>
+    
+    <div id="new__AES_Crypto_decryptStatus"></div>
+    
+    <script type="text/javascript">
+      function new__AES_Crypto_decryptTest() {
+        var expect = "the quick brown fox jumped over the lazy dog";
+        var actual = new AES.Crypto([209, 226, 230, 34, 56, 87, 142, 137, 135, 127, 83, 104, 55, 220, 68, 19]).setCounter([241, 229, 177, 73, 172, 112, 231, 89, 0, 0, 0, 0, 0, 0, 0, 0]).decrypt("XEEQN2MYXsRhvL7UFwiOT98hn2/vgF/e46CR6Kcy4y6KecM6qMjAG1h1nao=");
+        var passes = 0;
+        var errors = 0;
+        var status = document.getElementById("new__AES_Crypto_decryptStatus");
+        
+        for (var i = 0; i < expect.length; i++) {
+          if (expect[i] == actual[i]) {
+            reportPass(status);
+            passes++;
+          }
+          else {
+            reportError(status);
+            errors++;
+          }
+        }
+        reportCount(status, passes, errors);
+      } new__AES_Crypto_decryptTest();
+    </script>
+  </fieldset>
+</body>
+</html>
