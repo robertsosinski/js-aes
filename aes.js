@@ -38,18 +38,18 @@ var AES = {
       state[i % 4][Math.floor(i / 4)] = input[i];
     }
     
-    state = this.addRoundKey(state, w, 0, nb);
+    this.addRoundKey(state, w, 0, nb);
     
     for (var round = 1; round < nr; round++) {
-      state = this.subBytes(state, nb);
-      state = this.shiftRows(state, nb);
-      state = this.mixColumns(state, nb);
-      state = this.addRoundKey(state, w, round, nb)
+      this.subBytes(state, nb);
+      this.shiftRows(state, nb);
+      this.mixColumns(state, nb);
+      this.addRoundKey(state, w, round, nb)
     }
     
-    state = this.subBytes(state, nb);
-    state = this.shiftRows(state, nb);
-    state = this.addRoundKey(state, w, round, nb);
+    this.subBytes(state, nb);
+    this.shiftRows(state, nb);
+    this.addRoundKey(state, w, round, nb);
     
     for (var i = 0; i < output.length; i++) {
       output[i] = state[i % 4][Math.floor(i / 4)];
