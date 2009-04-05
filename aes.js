@@ -64,8 +64,6 @@ var AES = {
         state[r][c] = this.sbox[state[r][c]]
       }
     }
-    
-    return state;
   },
   
   shiftRows: function(state, nb) {
@@ -79,8 +77,6 @@ var AES = {
         state[r][c] = temp[c]
       }
     }
-    
-    return state;
   },
   
   mixColumns: function(state, nb) {
@@ -98,8 +94,6 @@ var AES = {
       state[2][c] = b[2] ^ a[1] ^ a[0] ^ b[3] ^ a[3];
       state[3][c] = b[3] ^ a[2] ^ a[1] ^ b[0] ^ a[0];
     }
-    
-    return state;
   },
   
   addRoundKey: function(state, w, round, nb) {
@@ -108,8 +102,6 @@ var AES = {
         state[r][c] ^= w[round * 4 + c][r];
       }
     }
-    
-    return state;
   },
   
   keyExpansion: function(key) {
