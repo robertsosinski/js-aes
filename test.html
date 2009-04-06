@@ -3,7 +3,7 @@
 
 <html>
 <head>
-  <title>aes.js test</title>
+  <title>JS-AES Test</title>
   <style type="text/css">
     body {
       font-family:monospace;
@@ -572,13 +572,16 @@
     <script type="text/javascript">
       function AES_rotWordTest() {
         var expect = [0xcf, 0x4f, 0x3c, 0x09];
-        var actual = AES.rotWord([0x09, 0xcf, 0x4f, 0x3c]);
+        var word   = [0x09, 0xcf, 0x4f, 0x3c];
+        
+        AES.rotWord(word);
+        
         var passes = 0;
         var errors = 0;
         var status = document.getElementById("AES_rotWordStatus");
         
         for (var i = 0; i < 4; i++) {
-          if (expect[i] == actual[i]) {
+          if (expect[i] == word[i]) {
             reportPass(status);
             passes++;
           }
@@ -600,13 +603,16 @@
     <script type="text/javascript">
       function AES_subWordTest() {
         var expect = [0x8a, 0x84, 0xeb, 0x01];
-        var actual = AES.subWord([0xcf, 0x4f, 0x3c, 0x09]);
+        var word   = [0xcf, 0x4f, 0x3c, 0x09];
+        
+        AES.subWord(word);
+        
         var passes = 0;
         var errors = 0;
         var status = document.getElementById("AES_subWordStatus");
         
         for (var i = 0; i < 4; i++) {
-          if (expect[i] == actual[i]) {
+          if (expect[i] == word[i]) {
             reportPass(status);
             passes++;
           }
@@ -677,17 +683,17 @@
   </fieldset>
   
   <fieldset>
-    <legend>new AES.Counter.increment</legend>
+    <legend>AES.Counter#increment</legend>
     
-    <div id="new__AES_Counter_incrementStatus"></div>
+    <div id="AES_Counter__incrementStatus"></div>
     
     <script type="text/javascript">
-      function new__AES_Counter_incrementTest() {
+      function AES_Counter__incrementTest() {
         var expect = [241, 229, 177, 73, 172, 112, 231, 89, 0, 0, 0, 0, 0, 1, 2, 3];
         var actual = new AES.Counter(); actual.array = [241, 229, 177, 73, 172, 112, 231, 89, 0, 0, 0, 0, 0, 0, 0, 0]; for (var i = 0; i < 0x10203; i++) actual.increment();
         var passes = 0;
         var errors = 0;
-        var status = document.getElementById("new__AES_Counter_incrementStatus");
+        var status = document.getElementById("AES_Counter__incrementStatus");
         
         for (var i = 0; i < expect.length; i++) {
           if (expect[i] == actual.array[i]) {
@@ -700,22 +706,22 @@
           }
         }
         reportCount(status, passes, errors);
-      } new__AES_Counter_incrementTest();
+      } AES_Counter__incrementTest();
     </script>
   </fieldset>
   
   <fieldset>
-    <legend>new AES.Crypto.encrypt</legend>
+    <legend>AES.Crypto#encrypt</legend>
     
-    <div id="new__AES_Crypto_encryptStatus"></div>
+    <div id="AES_Crypto__encryptStatus"></div>
     
     <script type="text/javascript">
-      function new__AES_Crypto_encryptTest() {
+      function AES_Crypto__encryptTest() {
         var expect = "XEEQN2MYXsRhvL7UFwiOT98hn2/vgF/e46CR6Kcy4y6KecM6qMjAG1h1nao=";
         var actual = new AES.Crypto([209, 226, 230, 34, 56, 87, 142, 137, 135, 127, 83, 104, 55, 220, 68, 19]).setCounter([241, 229, 177, 73, 172, 112, 231, 89, 0, 0, 0, 0, 0, 0, 0, 0]).encrypt("the quick brown fox jumped over the lazy dog");
         var passes = 0;
         var errors = 0;
-        var status = document.getElementById("new__AES_Crypto_encryptStatus");
+        var status = document.getElementById("AES_Crypto__encryptStatus");
         
         for (var i = 0; i < expect.length; i++) {
           if (expect[i] == actual[i]) {
@@ -728,22 +734,22 @@
           }
         }
         reportCount(status, passes, errors);
-      } new__AES_Crypto_encryptTest();
+      } AES_Crypto__encryptTest();
     </script>
   </fieldset>
   
   <fieldset>
-    <legend>new AES.Crypto.decrypt</legend>
+    <legend>AES.Crypto#decrypt</legend>
     
-    <div id="new__AES_Crypto_decryptStatus"></div>
+    <div id="AES_Crypto__decryptStatus"></div>
     
     <script type="text/javascript">
-      function new__AES_Crypto_decryptTest() {
+      function AES_Crypto__decryptTest() {
         var expect = "the quick brown fox jumped over the lazy dog";
         var actual = new AES.Crypto([209, 226, 230, 34, 56, 87, 142, 137, 135, 127, 83, 104, 55, 220, 68, 19]).setCounter([241, 229, 177, 73, 172, 112, 231, 89, 0, 0, 0, 0, 0, 0, 0, 0]).decrypt("XEEQN2MYXsRhvL7UFwiOT98hn2/vgF/e46CR6Kcy4y6KecM6qMjAG1h1nao=");
         var passes = 0;
         var errors = 0;
-        var status = document.getElementById("new__AES_Crypto_decryptStatus");
+        var status = document.getElementById("AES_Crypto__decryptStatus");
         
         for (var i = 0; i < expect.length; i++) {
           if (expect[i] == actual[i]) {
@@ -756,7 +762,7 @@
           }
         }
         reportCount(status, passes, errors);
-      } new__AES_Crypto_decryptTest();
+      } AES_Crypto__decryptTest();
     </script>
   </fieldset>
 </body>

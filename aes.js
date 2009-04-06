@@ -123,14 +123,15 @@ var AES = {
       }
       
       if (i % nk == 0) {
-        temp = this.subWord(this.rotWord(temp));
+        this.rotWord(temp);
+        this.subWord(temp);
         
         for (var j = 0; j < 4; j++) {
           temp[j] ^= AES.rcon[i / nk][j]
         }
       }
       else if (nk > 6 && i % nk == 4) {
-        temp = this.subWord(temp);
+        this.subWord(temp);
       }
       
       for (var j = 0; j < 4; j++) {
@@ -149,16 +150,12 @@ var AES = {
     }
     
     w[3] = temp;
-    
-    return w;
   },
   
   subWord: function(w) {
     for (var i = 0; i < 4; i++) {
       w[i] = this.sbox[w[i]];
     }
-    
-    return w;
   },
   
   generateKey: function() {
@@ -260,7 +257,7 @@ AES.Counter = function() {
         break;
       }
     }
-  
+    
     return this;
   }
 }
