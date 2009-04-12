@@ -162,7 +162,7 @@ var AES = {
     var key = new Array(16);
     
     for (var i = 0; i < 16; i++) {
-      key[i] = Math.floor(Math.random() * 0xff);
+      key[i] = Math.floor(Math.random() * 0x100);
     }
     
     return key;
