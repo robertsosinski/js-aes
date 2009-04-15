@@ -118,7 +118,7 @@ var AES = {
     for (var i = nk; i < w.length; i++) {
       w[i] = new Array(4);
       
-      for(var j = 0; j < 4; j++) {
+      for (var j = 0; j < 4; j++) {
         temp[j] = w[i - 1][j];
       }
       
@@ -290,7 +290,7 @@ AES.Crypto = function(key) {
       var counterBlock = AES.cipher(this.counter.array, this.keySchedule);
       var byteCount    = block + 1 == blockCount ? (input.length - 1) % blockSize + 1 : blockSize;
       
-      for(var c = 0; c < byteCount; c++) {
+      for (var c = 0; c < byteCount; c++) {
         var offset = block * blockSize;
         
         output[offset + c] = String.fromCharCode(counterBlock[c] ^ input.charCodeAt(offset + c));
@@ -306,7 +306,7 @@ AES.Crypto = function(key) {
     return AES.Base64.encode(this.run(text));
   }
   
-  this.decrypt = function(text) {    
+  this.decrypt = function(text) {
     return this.run(AES.Base64.decode(text));
   }
 }
