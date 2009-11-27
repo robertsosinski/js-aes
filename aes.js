@@ -61,7 +61,7 @@ var AES = {
   subBytes: function(state, nb) {
     for (var c = 0; c < nb; c++) {
       for (var r = 0; r < 4; r++) {
-        state[r][c] = this.sbox[state[r][c]]
+        state[r][c] = this.sbox[state[r][c]];
       }
     }
   },
@@ -74,7 +74,7 @@ var AES = {
         temp[c] = state[r][(c + r) % nb];
       }
       for (var c = 0; c < 4; c++) {
-        state[r][c] = temp[c]
+        state[r][c] = temp[c];
       }
     }
   },
@@ -127,7 +127,7 @@ var AES = {
         this.subWord(temp);
         
         for (var j = 0; j < 4; j++) {
-          temp[j] ^= AES.rcon[i / nk][j]
+          temp[j] ^= AES.rcon[i / nk][j];
         }
       }
       else if (nk > 6 && i % nk == 4) {
@@ -278,7 +278,7 @@ AES.Crypto = function(key) {
   }
   
   this.getCounter = function() {
-    return this.counter.array
+    return this.counter.array;
   }
   
   this.run = function(input) {
