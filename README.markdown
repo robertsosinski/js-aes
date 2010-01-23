@@ -1,5 +1,5 @@
 About
------
+=====
 
 JS-AES is a JavaScript implementation of the Advanced Encryption Standard using Counter Mode.
 
@@ -7,28 +7,33 @@ The best way to understand the aes.js source code is to follow along with a FIPS
 http://csrc.nist.gov/publications/fips/fips197/fips-197.pdf
 
 Usage
------
+=====
 
 After you include the aes.js file into your page, you can interact with it in the following manner:
 
-// Create two new crypto objects
-var aSide = new AES.Crypto(AES.generateKey());
-var bSide = new AES.Crypto(aSide.key);
+Create two new crypto objects
 
-// Sync the two cryptos
-bSide.setCounter(aSide.getCounter());
+    var aSide = new AES.Crypto(AES.generateKey());
+    var bSide = new AES.Crypto(aSide.key);
 
-// Encryption
-var cipherText = aSide.encrypt("the quick brown fox jumped over the lazy dog");
+Sync the two cryptos
 
-// Decryption
-var plainText = bSide.decrypt(cipherText);
+    bSide.setCounter(aSide.getCounter());
 
-// Compare
-plainText == "the quick brown fox jumped over the lazy dog";
+Encryption
+
+    var cipherText = aSide.encrypt("the quick brown fox jumped over the lazy dog");
+
+Decryption
+
+    var plainText = bSide.decrypt(cipherText);
+
+Compare
+
+    plainText == "the quick brown fox jumped over the lazy dog";
 
 Feedback
---------
+========
 
 If you have any questions, comments or just want to talk shop about crypto, feel free to reach me 
 through my website at http://www.robertsosinski.com.
