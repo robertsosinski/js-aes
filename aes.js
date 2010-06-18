@@ -63,7 +63,7 @@ var AES = {
     var state  = [new Array(nb), new Array(nb), new Array(nb), new Array(nb)];
     var output = new Array(4 * nb);
 
-    var i;
+    var i, round;
     
     for (i = 0; i < input.length; i++) {
       state[i % 4][Math.floor(i / 4)] = input[i];
@@ -71,7 +71,7 @@ var AES = {
     
     this.addRoundKey(state, w, 0, nb);
     
-    for (var round = 1; round < nr; round++) {
+    for (round = 1; round < nr; round++) {
       this.subBytes(state, nb);
       this.shiftRows(state, nb);
       this.mixColumns(state, nb);
