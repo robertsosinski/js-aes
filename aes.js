@@ -113,11 +113,11 @@ var AES = {
   },
   
   mixColumns: function(state, nb) {
-    var r, c;
+    var r, c, a, b;
 
     for (c = 0; c < nb; c++) {
-      var a = new Array(4);
-      var b = new Array(4);
+      a = new Array(4);
+      b = new Array(4);
       
       for (r = 0; r < 4; r++) {
         a[r] = state[r][c];
@@ -169,7 +169,7 @@ var AES = {
           temp[j] ^= AES.rcon[i / nk][j];
         }
       }
-      else if (nk > 6 && i % nk == 4) {
+      else if (nk > 6 && i % nk === 4) {
         this.subWord(temp);
       }
       
@@ -219,6 +219,7 @@ AES.Base64 = {
   
   encode: function (input) {
     var output = "";
+
     var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
 
     var i;
@@ -251,6 +252,7 @@ AES.Base64 = {
   
   decode: function (input) {
     var output = "";
+
     var chr1, chr2, chr3, dec1, dec2, dec3, dec4;
 
     var i;
@@ -269,10 +271,10 @@ AES.Base64 = {
       
       output = output + String.fromCharCode(chr1);
       
-      if (dec3 != 64) {
+      if (dec3 !== 64) {
         output = output + String.fromCharCode(chr2);
       }
-      if (dec4 != 64) {
+      if (dec4 !== 64) {
         output = output + String.fromCharCode(chr3);
       }
     }
@@ -284,27 +286,27 @@ AES.Base64 = {
 AES.Counter = function() {
   var time = Math.floor((new Date()).getTime() / 1000);
 
+  this.arr = new Array(16);
+
   var i;
   
-  this.array = new Array(16);
-  
   for (i = 0; i < 4; i++) {
-    this.array[i] = (time >>> i * 8) & 0xff;
+    this.arr[i] = (time >>> i * 8) & 0xff;
   }
   for (i = 4; i < 8; i++) {
-    this.array[i] = Math.floor(Math.random() * 0x100);
+    this.arr[i] = Math.floor(Math.random() * 0x100);
   }
   for (i = 8; i < 16; i++) {
-    this.array[i] = 0;
+    this.arr[i] = 0;
   }
   
   this.increment = function() {
     for (i = 15; i >= 8; i--) {
-      if (this.array[i] == 0xff) {
-        this.array[i] = 0;
+      if (this.arr[i] === 0xff) {
+        this.arr[i] = 0;
       } 
       else {
-        this.array[i]++;
+        this.arr[i]++;
         break;
       }
     }
@@ -322,39 +324,39 @@ AES.Crypto = function(key) {
 
   var i;
   
-  this.setCounter = function(array) {
+  this.setCounter = function(arr) {
     for (i = 0; i < 16; i++) {
-      this.counter.array[i] = array[i];
+      this.counter.arr[i] = arr[i];
     }
     
     return this;
   };
   
   this.getCounter = function() {
-    return this.counter.array;
+    return this.counter.arr;
   };
   
   this.run = function(input) {
     var blockCount = Math.ceil(input.length / blockSize);
     var output     = new Array(input.length);
 
+    var counterBlock, byteCount, offset;
+
     var block, c;
     
     for (block = 0; block < blockCount; block++) {
-      
-      var counterBlock = AES.cipher(this.counter.array, this.keySchedule);
-      var byteCount    = block + 1 == blockCount ? (input.length - 1) % blockSize + 1 : blockSize;
+      counterBlock = AES.cipher(this.counter.arr, this.keySchedule);
+      byteCount    = block + 1 === blockCount ? input.length % blockSize : blockSize;
+      offset       = block * blockSize;
       
       for (c = 0; c < byteCount; c++) {
-        var offset = block * blockSize;
-        
         output[offset + c] = String.fromCharCode(counterBlock[c] ^ input.charCodeAt(offset + c));
       }
       
       this.counter.increment();
     }
     
-    return output.join('');
+    return output.join("");
   };
   
   this.encrypt = function(text) {

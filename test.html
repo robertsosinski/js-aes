@@ -687,13 +687,13 @@
     <script type="text/javascript">
       function AES_Counter__incrementTest() {
         var expect = [241, 229, 177, 73, 172, 112, 231, 89, 0, 0, 0, 0, 0, 1, 2, 3];
-        var actual = new AES.Counter(); actual.array = [241, 229, 177, 73, 172, 112, 231, 89, 0, 0, 0, 0, 0, 0, 0, 0]; for (var i = 0; i < 0x10203; i++) actual.increment();
+        var actual = new AES.Counter(); actual.arr = [241, 229, 177, 73, 172, 112, 231, 89, 0, 0, 0, 0, 0, 0, 0, 0]; for (var i = 0; i < 0x10203; i++) actual.increment();
         var passes = 0;
         var errors = 0;
         var status = document.getElementById("AES_Counter__incrementStatus");
         
         for (var i = 0; i < expect.length; i++) {
-          if (expect[i] == actual.array[i]) {
+          if (expect[i] == actual.arr[i]) {
             reportPass(status);
             passes++;
           }
